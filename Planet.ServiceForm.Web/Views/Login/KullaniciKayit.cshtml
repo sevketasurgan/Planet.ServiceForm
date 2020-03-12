@@ -1,0 +1,210 @@
+﻿@using System.Data.SqlClient;
+
+#line default
+#line hidden
+
+#line 6 "C:\Users\Sevket\source\repos\Planet.ServiceForm\Planet
+
+@{
+    ViewBag.Title = "Kullanıcı Kayıt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@{
+    ViewBag.Title = "Admin Panel Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+
+    <!-- Custom fonts for this template-->
+    <link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="~/Content/css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-3 d-none d-lg-block"></div>  @*bg-login-image*@
+                            <div class="col-lg-12">
+                                <div class="p-5">
+                                    <div class="text-center">
+
+                                        <h1 class="h4 text-gray-900 mb-4"> Kullanıcı Kayıt Ekranı</h1>
+                                    </div>
+
+                                    @{
+                                        if (IsPost)
+                                        {
+                                            //String firma_Mail = Request["firma_mail"];
+                                            //String firma_Sifre = Request["firma_sifre"];
+
+
+                                            //string BaglantiAdresi = @"Server=SEVKETPC\SQLEXPRESS; Initial Catalog=firmabilgiler; Integrated Security=True";
+                                            //SqlConnection Baglanti = new SqlConnection(BaglantiAdresi);
+                                            try
+                                            {
+                                                firmabilgilerEntities db = new firmabilgilerEntities();
+                                                usertbl usrtable = new usertbl();
+                                                firmatbl frmtable = new firmatbl();
+                                                string usrname = Request["username"];
+                                                bool kullaniciVarmi = db.usertbls.Any(f => (f.user_name == usrname));
+
+                                                if (kullaniciVarmi == true)
+                                                {
+                                                    <h1>Kullanıcı Bulunmaktadır!</h1>
+                                                    <a href="~/Login/Login" class="btn btn-outline-dark btn-user btn-block">
+                                                        <span class="icon text-white-50 font-weight-bold">
+                                                            <i class="fas fa-arrow-left"></i>
+                                                        </span>
+                                                        <span class="text">Giriş Ekranı'na Dön</span>
+                                                    </a>
+                                                }
+                                                else if (kullaniciVarmi == false)
+                                                {
+
+                                                    usrtable.user_ad = Request["user_isim"];
+                                                    usrtable.user_soyad = Request["user_soyad"];
+                                                    usrtable.user_sifre = Request["user_sifre"];
+                                                    usrtable.user_mail = Request["user_mail"];
+                                                    usrtable.user_name = Request["username"];
+                                                    frmtable.userid = usrtable.id;
+                                                    frmtable.firma_isim = Request["compname"];
+                                                    db.usertbls.Add(usrtable);
+                                                    db.firmatbls.Add(frmtable);
+                                                    db.SaveChanges();
+                                                    <div class="alert alert-success" role="alert">
+                                                        Kayıt Başarılı!
+                                                    </div>
+                                                    <hr />
+                                                    <a href="~/Login/Login" class="btn btn-outline-dark btn-user btn-block">
+                                                        <span class="icon text-white-50 font-weight-bold">
+                                                            <i class="fas fa-arrow-left"></i>
+                                                        </span>
+                                                        <span class="text">Giriş Ekranı'na Dön</span>
+                                                    </a>
+
+                                                }
+
+
+
+
+
+                                            }
+                                            catch (Exception)
+                                            {
+
+                                                throw;
+                                            }
+
+                                        }
+                                        else
+                                        {
+
+                                            <form class="user" method="post" action="">
+                                                <div class="form-group">
+                                                    <input type="text" name="username" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Kullanıcı Adı">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="user_isim" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Adınız">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="user_soyad" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Soyadınız">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" name="user_sifre" class="form-control form-control-user" id="exampleInputPassword" placeholder="Şifreniz">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="email" name="user_mail" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="E-Mail Adresinizi Giriniz...">
+                                                </div>
+                                                <hr />
+
+
+                                                <hr />
+
+
+                                                <button type="submit" class="btn btn-primary btn-user btn-block">Kayıt Ol</button>
+                                                <hr>
+                                                <a href="~/Login/Login" class="btn btn-outline-dark btn-user btn-block">
+                                                    <span class="icon text-white-50 font-weight-bold">
+                                                        <i class="fas fa-arrow-left"></i>
+                                                    </span>
+                                                    <span class="text">Giriş Ekranı</span>
+                                                </a>
+
+
+                                            </form>
+
+
+
+
+                                        }
+
+
+
+
+                                    }
+
+
+
+
+                                    <hr>
+
+                                    @*<div class="text-center">
+            <a class="small" href="register.html">Hesap Oluştur</a>
+        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Content/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
