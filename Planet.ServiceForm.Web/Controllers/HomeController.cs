@@ -13,13 +13,27 @@ namespace Planet.ServiceForm.Web.Controllers
     {
         // GET: Home
         //[Authorize]
-       
-       //[HttpPost]
-        public ActionResult Index(string mailFirma)
+        private firmabilgilerEntities db = new firmabilgilerEntities();
+       [HttpGet]
+        public ActionResult Index()
         {
-
+            ViewBag.ListEmployee = this.db.formtbls.ToList();
             return View();
         }
+        [HttpPost]
+        public ActionResult Index(FormCollection formCollection)
+        {
+            string[] ids = formCollection["ID"].Split(new char[] { ',' });
+            foreach (string id in ids)
+            {
+                var form = this.db.formtbls.Find(int.Parse(id));
+                this.db.formtbls.Remove(form);
+                this.db.SaveChanges();
+
+            }
+            return RedirectToAction("Index");
+        }
+
         public ActionResult DataInput()
         {
             return View();
@@ -43,35 +57,7 @@ namespace Planet.ServiceForm.Web.Controllers
             return View();
         }
 
-        //public bool IsValid(string mail)
-        //{
-        //    bool valid = false;
-        //    string BaglantiAdresi = @"Server=SEVKETPC\SQLEXPRESS; Initial Catalog=firmabilgiler; Integrated Security=True";
-        //    SqlConnection Baglanti = new SqlConnection(BaglantiAdresi);
-        //    SqlCommand cmd = new SqlCommand("select * from  where firma_mail=@firmaMail", Baglanti);
-        //    cmd.Parameters.AddWithValue("@firmaMail", mail);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    Baglanti.Open();
-        //    int i = cmd.ExecuteNonQuery();
-        //    Baglanti.Close();
-
-        //    if (dt.Rows.Count > 0)
-        //    {
-
-        //        valid = true;
-
-        //    }
-        //    else
-        //    {
-
-        //        valid = false;
-        //    }
-
-        //    return valid;
-
-        //}
+  
 
     }
 }
