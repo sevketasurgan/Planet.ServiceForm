@@ -1916,6 +1916,7 @@
     <Content Include="firma.edmx.diagram">
       <DependentUpon>firma.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\js\TurkishDatatable\Turkish.json" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

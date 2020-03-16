@@ -166,134 +166,146 @@
                 </div>
 
                 <!-- /.container-fluid -->
+                <center><h2>Firma Kayıt Ekranı  </h2></center>
                 <br /><br />
+                <div class="row">
+                    <div class="col-lg-3 d-none d-lg-block"></div>  @*bg-login-image*@
+                    <div class="col-lg-12">
+                        <div class="p-5">
+                            <div class="text-center">
 
-                @{
-
-
-                    try
-                    {
-
-
-                        if (IsPost)
-                        {
-                            firmabilgilerEntities db = new firmabilgilerEntities();
-
-                            firma_isim frmisim = new firma_isim();
-
-                            string Firmaİsim = Request["firma_isim"].ToString().ToUpper().Trim();
-
-                            bool firmaVarmi = db.firma_isim.Any(f => (f.firma_isimi == Firmaİsim));
-
-                            if (firmaVarmi)
-                            {
-                                <h1>Firma Kaydı Bulunmaktadır!</h1>
-                            }
-                            else if (firmaVarmi == false)
-                            {
-                                frmisim.firma_isimi = Firmaİsim;
-
-                                db.firma_isim.Add(frmisim);
-                                db.SaveChanges();
-                                <h1>Kayıt Başarılı</h1>
+                                @{
 
 
-
-                            }
-
-
-
-                            <hr />
+                                    try
+                                    {
 
 
-                        }
-                        else
-                        {
-                            <form class="user" method="post" action="">
-                                <div class="form-group">
-                                    <input type="text" name="firma_isim" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Firma Adı">
-                                </div>
+                                        if (IsPost)
+                                        {
+                                            firmabilgilerEntities db = new firmabilgilerEntities();
 
-                                <button type="submit" class="btn btn-primary btn-user btn-block">Firmayı Kayıt Et</button>
-                                <hr>
-                            </form>
+                                            firma_isim frmisim = new firma_isim();
+
+                                            string Firmaİsim = Request["firma_isim"].ToString().ToUpper().Trim();
+
+                                            bool firmaVarmi = db.firma_isim.Any(f => (f.firma_isimi == Firmaİsim));
+
+                                            if (firmaVarmi)
+                                            {
+                                                <h1>Firma Kaydı Bulunmaktadır!</h1>
+                                            }
+                                            else if (firmaVarmi == false)
+                                            {
+                                                frmisim.firma_isimi = Firmaİsim;
+
+                                                db.firma_isim.Add(frmisim);
+                                                db.SaveChanges();
+                                                <h1>Kayıt Başarılı</h1>
 
 
 
-                            <hr />
+                                            }
 
 
 
-
-                        }
-
-
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
-                    finally
-                    {
-
-                    }
+                                            <hr />
 
 
-                }
+                                        }
+                                        else
+                                        {
+                                            <form class="user" method="post" action="">
+                                                <div class="form-group">
+                                                    <input type="text" name="firma_isim" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Firma Adı">
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary btn-user btn-block">Firmayı Kayıt Et</button>
+                                                <hr>
+                                            </form>
 
 
 
 
-                <!-- End of Main Content -->
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Planet Admin Panel @DateTime.Now.Year</span>
+
+
+
+
+                                        }
+
+
+                                    }
+                                    catch (Exception)
+                                    {
+
+                                        throw;
+                                    }
+                                    finally
+                                    {
+
+                                    }
+
+
+                                }
+
+                            </div>
                         </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
-
-            </div>
-            <!-- End of Content Wrapper -->
-
-        </div>
-        <!-- End of Page Wrapper -->
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
                     </div>
                 </div>
             </div>
+
+
+
+
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Planet Admin Panel @DateTime.Now.Year</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
+                            <!-- End of Content Wrapper -->
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="~/Content/vendor/jquery/jquery.min.js"></script>
-        <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                        </div>
+                        <!-- End of Page Wrapper -->
+                        <!-- Scroll to Top Button-->
+                        <a class="scroll-to-top rounded" href="#page-top">
+                            <i class="fas fa-angle-up"></i>
+                        </a>
 
-        <!-- Core plugin JavaScript-->
-        <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+                        <!-- Logout Modal-->
+                        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                        <a class="btn btn-primary" href="login.html">Logout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <!-- Custom scripts for all pages-->
-        <script src="~/Content/js/sb-admin-2.min.js"></script>
+                        <!-- Bootstrap core JavaScript-->
+                        <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+                        <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+                        <!-- Core plugin JavaScript-->
+                        <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+                        <!-- Custom scripts for all pages-->
+                        <script src="~/Content/js/sb-admin-2.min.js"></script>
 
 </body>
 
